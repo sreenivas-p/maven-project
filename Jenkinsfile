@@ -3,15 +3,10 @@ pipeline {
     stages{
         stage('Build'){
             steps {
-                sh 'mvn clean package'
-            }
-            post {
-                success {
-                    echo 'Now Archiving...'
-                    archiveArtifacts artifacts: '**/target/*.war'
-                }
+                build job: 'build-artifact'
             }
         }
+            
         stage ('Deploy to Staging'){
             steps {
                 build job: 'build-staging'
